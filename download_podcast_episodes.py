@@ -7,6 +7,7 @@ import argparse
 import csv
 import urllib.parse
 import boto3
+import os
 
 # Command-line arguments.
 parser = argparse.ArgumentParser()
