@@ -18,6 +18,7 @@ TL;DR
 1. Create a virtualenv.
 2. `pip install -r requirements.txt`
 3. Add X-ListenApi-Key to your environment variables.
+4. TO DO
 
 ## Columns
 Episode:
@@ -31,4 +32,15 @@ Episode:
 Podcast:
 * UUID
 * Title
-* ...
+* Author
+* Description
+* Category
+* Image
+
+
+## Podcasts In final-output
+* The Daily
+* Revisionist History
+* Something Cultural
+* Crime
+*

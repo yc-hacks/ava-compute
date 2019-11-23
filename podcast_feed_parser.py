@@ -29,7 +29,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbose", help="increase output verbosity",
                     action="store_true")
 parser.add_argument("-u", "--url", help="URL to Podcast RSS Feed. ")
-parser.add_argument("-s", "--podcast_src", help="Podcasts to be downloaded.")
+parser.add_argument("-s", "--podcast_src", help="Podcast list generated with podcast_list_creator.py")
 args = parser.parse_args()
 
 # Transforms title into a filename.
