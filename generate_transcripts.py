@@ -8,14 +8,18 @@ import time
 import boto3
 import argparse
 import csv
+import botocore
+import wget
 import json
 
 # Command-line arguments.
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbose", help="increase output verbosity",
                     action="store_true")
-parser.add_argument("-s", "--podcast_src", help="Home directory for podcasts to be transcribed.")
-parser.add_argument("-n", "--num", help="How many podcasts in the home directory should be transcribed.", type=int)
+parser.add_argument("-s", "--podcast_src",
+                    help="Home directory for podcasts to be transcribed.")
+parser.add_argument(
+    "-n", "--num", help="How many podcasts in the home directory should be transcribed.", type=int)
 parser.add_argument("-i", "--doc", help="Podcast Episode CSV File.")
 args = parser.parse_args()
 
@@ -45,7 +49,7 @@ with open(episode_file, "rt") as episodeFile, open(resultingPath, "w") as result
     episodes = list(episodeReader)
     countEpisodes = 0
     for i, e in enumerate(episodes):
-        if i > podcastCount:
+        if i >= podcastCount:
             break
         jobName = f"{podSrc}_episode_{i}"
         episode_id = e[0]
@@ -56,9 +60,7 @@ with open(episode_file, "rt") as episodeFile, open(resultingPath, "w") as result
         print(jobName)
         print(jobUri)
         # Save Translated Json
-        # with open('asrOutput.json') as f:
-        #     d = json.load(f)
-        #     translated = d['results']['transcripts'][0]['transcript']
+
         transcribe.start_transcription_job(
             TranscriptionJobName=jobName,
             Media={'MediaFileUri': jobUri},
@@ -72,9 +74,13 @@ with open(episode_file, "rt") as episodeFile, open(resultingPath, "w") as result
                 break
             print(f"Job {jobName} Not ready yet...")
             time.sleep(5)
-        translated = status['results']['transcripts'][0]['transcript']
-        f.close()
-        # print(translated)
+        path_to_output = status['Transcript']['TranscriptFileUri']
+        wget.download(path_to_output, f"{podSrc}/transcripts/{episode_id}_episode_{i}.json")
+        with open(f"{podSrc}/transcripts/{episode_id}_episode_{i}.json", "rt") as transcriptFile:
+            d = json.load(transcriptFile)
+        translated = d['results']['transcripts'][0]['transcript']
+        transcriptFile.close()
+        print(translated)
         e.append(translated)
         resultWriter.writerow(e)
 
