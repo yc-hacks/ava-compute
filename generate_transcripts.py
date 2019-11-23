@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbose", help="increase output verbosity",
                     action="store_true")
 parser.add_argument("-s", "--podcast_src",
-                    help="Home directory for podcasts to be transcribed.")
+                    help="Home directory for podcasts to be transcribed, e.g. `the_daily`.")
 parser.add_argument(
     "-n", "--num", help="How many podcasts in the home directory should be transcribed.", type=int)
 parser.add_argument("-i", "--doc", help="Podcast Episode CSV File.")
@@ -32,7 +32,7 @@ basePath = f"s3://ava-compute-storage/{podSrc}"
 # How many podcasts to transcribe.
 podcastCount = args.num
 # Resulting path.
-resultingPath = f"{podSrc}/transcripts/{podSrc}_episodes_transcribed.csv"
+resultingPath = f"podcasts/{podSrc}/transcripts/{podSrc}_episodes_transcribed.csv"
 
 # Transcription Engine
 transcribe = boto3.client('transcribe')
@@ -76,7 +76,7 @@ with open(episode_file, "rt") as episodeFile, open(resultingPath, "w") as result
             time.sleep(5)
         path_to_output = status['TranscriptionJob']['Transcript']['TranscriptFileUri']
         wget.download(path_to_output, f"{podSrc}/transcripts/{episode_id}_episode_{i}.json")
-        with open(f"{podSrc}/transcripts/{episode_id}_episode_{i}.json", "rt") as transcriptFile:
+        with open(f"podcasts/{podSrc}/transcripts/{episode_id}_episode_{i}.json", "rt") as transcriptFile:
             d = json.load(transcriptFile)
         translated = d['results']['transcripts'][0]['transcript']
         transcriptFile.close()
