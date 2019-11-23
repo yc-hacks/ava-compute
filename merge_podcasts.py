@@ -11,7 +11,7 @@ def cleanhtml(raw_html):
   return cleantext
 
 def create_df(fileName):
-    return pd.read_csv(fileName, names=["UUID", "title", "author", "description", "category", "image"])
+    return pd.read_csv(fileName, names=["uuid", "title", "author", "description", "category", "image"])
 
 if __name__ == "__main__":
     os.chdir("./final-output/podcasts")
