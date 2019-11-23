@@ -74,7 +74,7 @@ with open(episode_file, "rt") as episodeFile, open(resultingPath, "w") as result
                 break
             print(f"Job {jobName} Not ready yet...")
             time.sleep(5)
-        path_to_output = status['Transcript']['TranscriptFileUri']
+        path_to_output = status['TranscriptionJob']['Transcript']['TranscriptFileUri']
         wget.download(path_to_output, f"{podSrc}/transcripts/{episode_id}_episode_{i}.json")
         with open(f"{podSrc}/transcripts/{episode_id}_episode_{i}.json", "rt") as transcriptFile:
             d = json.load(transcriptFile)
