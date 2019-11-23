@@ -1,5 +1,11 @@
+beautifulsoup4==4.8.1
 certifi==2019.9.11
 chardet==3.0.4
+feedparser==5.2.1
 idna==2.8
+pycurl==7.43.0.3
+pyPodcastParser==2.0.0
 requests==2.22.0
+soupsieve==1.9.5
 urllib3==1.25.7
+wget==3.2

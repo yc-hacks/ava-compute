@@ -1,2 +1,3 @@
 # Ignore virtualenv
 **/ava-env
+*.mp3

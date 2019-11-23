@@ -22,6 +22,7 @@ import requests
 import argparse
 import feedparser
 import uuid
+import string
 
 # Command-line arguments.
 parser = argparse.ArgumentParser()
@@ -75,11 +76,14 @@ def getPodcastEpisodes(uuid, podcast):
             episode['summary'] = entry['summary']
             episode['published'] = entry['published']
             episode_links = entry['links']
-            links = []
+            # links = []
             for link in episode_links:
                 link_href = link['href']
-                links.append(link_href)
-            episode['links'] = links
+                if link_href.find("mp3") != -1:
+                    # print("Found MP3")
+                    episode['links'] = link_href
+                # links.append(link_href)
+            # episode['links'] = links
             podcastEpisodes.append(episode)
             if args.verbose:
                 for key, value in episode.items():
@@ -112,7 +116,7 @@ def main():
             for episode in podcastEpisodes:
                 countEpisodes += 1
                 episodeWriter.writerow([value for key, value in episode.items()])
-            printf(f"Saved info about {countEpisodes} podcast episodes.")
+            print(f"Saved info about {countEpisodes} podcast episodes.")
         podcastFile.close()
         episodesFile.close()
     elif args.podcast_src:
