@@ -14,6 +14,7 @@ parser.add_argument("-v", "--verbose", help="increase output verbosity",
 parser.add_argument("-n", "--number_episodes", help="Number of episodes to download.", type=int)
 # parser.add_argument("-s", "--start_index", help="Start downloading podcasts from the index.")
 parser.add_argument("-i", "--input", help="File that contains podcast episode URLs.", required=True)
+parser.add_argument("-d", "--destination", help="Where should this podcast go.Files will be called `destination`_episode_ix.mp3", required=True)
 args = parser.parse_args()
 
 # Transforms title into a filename.
@@ -38,7 +39,7 @@ def main():
             episode_url = podcast[4]
             print(episode_url)
             podcast_id = podcast[0]
-            pathToDownload = f"./{podcast_id}_episode_{countDownloads}.mp3"
+            pathToDownload = f"{args.destination}_episode_{countDownloads}.mp3"
             print(pathToDownload)
             countDownloads += 1
             # Download it into an S3 bucket.
