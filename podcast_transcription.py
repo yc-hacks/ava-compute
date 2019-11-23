@@ -4,7 +4,12 @@
 from __future__ import print_function
 import time
 import boto3
+
+# Transcription Engine
 transcribe = boto3.client('transcribe')
+
+
+
 job_name = "test-job"
 job_uri = "s3://ava-compute-storage/the_daily/e847d671-7d68-42ea-91ab-c2515a9f0a66_episode_0.mp3"
 transcribe.start_transcription_job(
