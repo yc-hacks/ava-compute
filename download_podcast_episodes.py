@@ -54,9 +54,11 @@ def main():
             # Download it into an S3 bucket.
             # Count number of podcasts downloaded. Try/catch.
             if args.boto3:
-                SOURCE_FILENAME = episode_url
+                SOURCE_FILENAME = pathToDownload
                 BUCKET_NAME = 'ava-compute-storage'
+                wget.download(episode_url, SOURCE_FILENAME)
                 S3.upload_file(SOURCE_FILENAME, BUCKET_NAME, SOURCE_FILENAME)
+                os.remove(SOURCE_FILENAME)
             else:
                 wget.download(episode_url, pathToDownload)
 
