@@ -26,7 +26,7 @@ Episode:
 * Summary
 * Published
 * Link
-* Transcripion blog
+* Transcripion blob
 
 Podcast:
 * UUID
