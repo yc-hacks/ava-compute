@@ -32,7 +32,7 @@ basePath = f"s3://ava-compute-storage/{podSrc}"
 # How many podcasts to transcribe.
 podcastCount = args.num
 # Resulting path.
-resultingPath = f"{podSrc}/transcripts/episodes.csv"
+resultingPath = f"{podSrc}/transcripts/{podSrc}_episodes_transcribed.csv"
 
 # Transcription Engine
 transcribe = boto3.client('transcribe')
