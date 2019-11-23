@@ -14,11 +14,11 @@ parser.add_argument("-v", "--verbose", help="increase output verbosity",
 parser.add_argument("-u", "--url", help="URL to Podcast RSS Feed. ")
 parser.add_argument("-s", "--podcast_src", help="Home directory for podcasts to be transcribed.")
 parser.add_argument("-n", "--num", help="How many podcasts in the home directory should be transcribed.")
-parser.add_argument("-i", "--in", help="Podcast Episode CSV File.")
+parser.add_argument("-i", "--doc", help="Podcast Episode CSV File.")
 args = parser.parse_args()
 
 # Load podcast episode file.
-episode_file = args.in
+episode_file = args.doc
 # Podcast base directory e.g. "the_daily"
 podSrc = args.podcast_src
 # Path where podcasts are stored in S3.
