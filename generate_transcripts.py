@@ -52,21 +52,21 @@ with open(episode_file, "rt") as episodeFile, open(resultingPath, "w") as result
         countEpisodes += 1
         print(f"Transcribing {args.podcast_src} Episode {i} of {podcastCount}")
         jobName = f"{podSrc}_episode_{i}"
-        job_uri = f"{basePath}/{episode_id}_episode_{i}.mp3"
+        jobUri = f"{basePath}/{episode_id}_episode_{i}.mp3"
         print(jobName)
-        print(job_uri)
+        print(jobUri)
         # Save Translated Json
         # with open('asrOutput.json') as f:
         #     d = json.load(f)
         #     translated = d['results']['transcripts'][0]['transcript']
         transcribe.start_transcription_job(
-            TranscriptionJobName=job_name,
-            Media={'MediaFileUri': job_uri},
+            TranscriptionJobName=jobName,
+            Media={'MediaFileUri': jobUri},
             MediaFormat='mp3',
             LanguageCode='en-US'
         )
         while True:
-            status = transcribe.get_transcription_job(TranscriptionJobName=job_name)
+            status = transcribe.get_transcription_job(TranscriptionJobName=jobName)
             if status['TranscriptionJob']['TranscriptionJobStatus'] in ['COMPLETED', 'FAILED']:
                 print(status)
                 break
