@@ -13,4 +13,8 @@ TL;DR
    * Run `ssh -i {full path of your .pem file} ec2-user@{instance IP address}`
    * Optional: Enable X Window client here by adding the `-x` flag.
 
-### Saving Files
+### Running Code
+
+1. Create a virtualenv.
+2. `pip install -r requirements.txt`
+3. Add X-ListenApi-Key to your environment variables.
