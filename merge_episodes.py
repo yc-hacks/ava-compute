@@ -37,7 +37,7 @@ if __name__ == "__main__":
     os.chdir("./final-output/episodes")
 
     OUTPUT_FILE = "../merged_episodes.csv"
-    MAX_CHUNK = 50
+    MAX_CHUNK = 100
 
     extension = 'csv'
     all_filenames = [i for i in glob.glob('*.{}'.format(extension))]
