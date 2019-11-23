@@ -6,10 +6,13 @@ import wget
 import argparse
 import csv
 import urllib.parse
+import boto3
 
 # Command-line arguments.
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbose", help="increase output verbosity",
+                    action="store_true")
+parser.add_argument("-b", "--boto3", help="If set, saves to the s3 bucket.",
                     action="store_true")
 parser.add_argument("-n", "--number_episodes", help="Number of episodes to download.", type=int)
 # parser.add_argument("-s", "--start_index", help="Start downloading podcasts from the index.")
@@ -25,6 +28,8 @@ def namify(title):
 def main():
     # Get URL from filepath that contains .mp3
     inputPath = args.input
+    if args.boto3:
+        S3 = boto3.client('s3')
     with open(inputPath, "rt") as episodeList:
         episodeReader = csv.reader(episodeList)
         podcasts = list(episodeReader)
@@ -39,12 +44,22 @@ def main():
             episode_url = podcast[4]
             print(episode_url)
             podcast_id = podcast[0]
-            pathToDownload = f"{args.destination}/{podcast_id}_episode_{countDownloads}.mp3"
+            if args.destination:
+                pathToDownload = f"{args.destination}/{podcast_id}_episode_{countDownloads}.mp3"
+            else:
+                pathToDownload = f"{podcast_id}_episode_{countDownloads}.mp3"
+
             print(pathToDownload)
             countDownloads += 1
             # Download it into an S3 bucket.
             # Count number of podcasts downloaded. Try/catch.
-            wget.download(episode_url, pathToDownload)
+            if args.boto3:
+                SOURCE_FILENAME = episode_url
+                BUCKET_NAME = 'ava-compute-storage'
+                S3.upload_file(SOURCE_FILENAME, BUCKET_NAME, SOURCE_FILENAME)
+            else:
+                wget.download(episode_url, pathToDownload)
+
         episodeList.close()
         print(f"Downloaded {countDownloads} episodes.")
 if __name__ == "__main__":
