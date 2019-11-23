@@ -6,7 +6,7 @@ def numWords(sentence):
     return len(sentence.split())
 
 def transcript_to_chunks(transcript, maxChunkSize):
-    sentences = transcript.split('.')
+    sentences = str(transcript).split('.')
 
     # Array of arrays of string
     chunks = []
