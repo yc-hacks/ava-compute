@@ -31,4 +31,7 @@ Episode:
 Podcast:
 * UUID
 * Title
-* ...
+* Author
+* Description
+* Category
+* Image
