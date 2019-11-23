@@ -39,7 +39,7 @@ def main():
             episode_url = podcast[4]
             print(episode_url)
             podcast_id = podcast[0]
-            pathToDownload = f"{args.destination}/{_episode_{countDownloads}.mp3"
+            pathToDownload = f"{args.destination}/{podcast_id}_episode_{countDownloads}.mp3"
             print(pathToDownload)
             countDownloads += 1
             # Download it into an S3 bucket.
