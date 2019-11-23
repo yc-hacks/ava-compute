@@ -17,7 +17,7 @@ parser.add_argument("podcast_dest",
 parser.add_argument("genre_list_dest",
                     help="Destination path for genre ids and names")
 parser.add_argument("-n", "--max_count", help="Max number of podcasts per genre.", type=int)
-parser.add_argument('-l','--list_id', nargs='+', help='List of podcast ids.', type=int)
+# parser.add_argument('-l','--list_id', nargs='+', help='List of podcast ids.', type=int)
 args = parser.parse_args()
 
 # Main
@@ -30,8 +30,8 @@ def main():
         'X-ListenAPI-Key': key,
     }
     # Get all podcast genres.
-    if args.list_id:
-        IDList = args.list_id
+    # if args.list_id:
+        # IDList = args.list_id
     url_genres = 'https://listen-api.listennotes.com/api/v2/genres'
     response_genre = requests.request('GET', url_genres, headers=headers)
     json_data_genre = json.loads(response_genre.text)
@@ -53,8 +53,8 @@ def main():
                 genreSet.add(genre_id)
                 countGenres += 1
                 genreWriter.writerow([genre_id, genre_name])
-            if args.list_id:
-                print(IDList)
+            # if args.list_id:
+                # print(IDLisat)
             else:
                 # Get best podcasts for each genre.
                 url_podcasts = f'https://listen-api.listennotes.com/api/v2/best_podcasts?genre_id={genre_id}&page=1&region=us&safe_mode=0'
